@@ -1,0 +1,21 @@
+app c2logApp {
+  wasp: {
+    version: "^0.13.2"
+  },
+  title: "c2log-app"
+}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import { MainPage } from "@src/MainPage"
+}
+
+route DashboardRoute { path: "/dashboard", to: Dashboard }
+page Dashboard {
+  component: import { DashboardPage } from "@src/DashboardPage"
+}
+
+entity Pharmacy {=psl
+    id          Int     @id @default(autoincrement())
+    name        String
+psl=}
