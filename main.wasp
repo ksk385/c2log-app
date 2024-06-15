@@ -17,5 +17,41 @@ page Dashboard {
 
 entity Pharmacy {=psl
     id          Int     @id @default(autoincrement())
+
     name        String
+
+    users       User[]
+
+    log         Log?
+psl=}
+
+entity User {=psl
+    id          Int     @id @default(autoincrement())
+    name        String
+
+    pin         Int
+
+    pharmacy    Pharmacy @relation(fields: [pharmacyId], references: [id])
+    pharmacyId  Int
+psl=}
+
+entity Log {=psl
+  id          Int     @id @default(autoincrement())
+  
+  pharmacy    Pharmacy @relation(fields: [pharmacyId], references: [id])
+  pharmacyId  Int  @unique // relation scalar field (used in the `@relation` attribute above)
+
+  entries     Entries[]
+psl=}
+
+entity Entries {=psl
+  id          Int     @id @default(autoincrement())
+
+  ndc         String
+  quantity    Int
+  date        DateTime @default(now())
+  entryId     String
+
+  log         Log @relation(fields: [logId], references: [id]) // references `id` of `Log`
+  logId       Int
 psl=}
