@@ -71,3 +71,9 @@ query getUserInfo {
   fn: import { getUserInfo } from "@src/queries",
   entities: [User, Pharmacy ],
 }
+
+/* Actions */
+action addOrder {
+  fn: import { addOrder } from "@src/actions",
+  entities: [Entries, User, Pharmacy, Log],
+}
