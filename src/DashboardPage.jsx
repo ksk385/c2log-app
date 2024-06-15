@@ -4,7 +4,7 @@ import { getUserInfo, useQuery } from "wasp/client/operations";
 
 export const DashboardPage = () => {
   const {
-    data: user,
+    data: userInfo,
     isLoading,
     error,
   } = useQuery(getUserInfo, {
@@ -14,7 +14,7 @@ export const DashboardPage = () => {
   return (
     <div className="container">
       <main>
-        {user && <UserInfo user={user} />}
+        {userInfo && <UserInfo userInfo={userInfo} />}
 
         {isLoading && "Loading..."}
         {error && "Error: " + error}
@@ -23,8 +23,13 @@ export const DashboardPage = () => {
   );
 };
 
-const UserInfo = ({ user }) => {
-  if (!user) return <div>No user</div>;
+const UserInfo = ({ userInfo }) => {
+  if (!userInfo) return <div>No user</div>;
 
-  return <div>Hi {user.name}!</div>;
+  return (
+    <>
+      <div>{userInfo.pharmacy.name}</div>
+      <div>Hi {userInfo.name}!</div>
+    </>
+  );
 };
