@@ -1,6 +1,7 @@
 import waspLogo from "./waspLogo.png";
 import "./Dashboard.css";
 import { getUserInfo, useQuery } from "wasp/client/operations";
+import { Link } from "wasp/client/router";
 
 export const DashboardPage = () => {
   const {
@@ -18,6 +19,9 @@ export const DashboardPage = () => {
 
         {isLoading && "Loading..."}
         {error && "Error: " + error}
+        <Link to="/add-order">
+          <div>Add Order</div>
+        </Link>
       </main>
     </div>
   );

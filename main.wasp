@@ -17,6 +17,11 @@ page Dashboard {
   component: import { DashboardPage } from "@src/DashboardPage"
 }
 
+route AddOrderRoute { path: "/add-order", to: AddOrder }
+page AddOrder {
+  component: import { AddOrderPage } from "@src/AddOrderPage"
+}
+
 /* Entities */
 
 entity Pharmacy {=psl
