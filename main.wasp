@@ -5,6 +5,8 @@ app c2logApp {
   title: "c2log-app"
 }
 
+/* Routes */
+
 route RootRoute { path: "/", to: MainPage }
 page MainPage {
   component: import { MainPage } from "@src/MainPage"
@@ -14,6 +16,8 @@ route DashboardRoute { path: "/dashboard", to: Dashboard }
 page Dashboard {
   component: import { DashboardPage } from "@src/DashboardPage"
 }
+
+/* Entities */
 
 entity Pharmacy {=psl
     id          Int     @id @default(autoincrement())
@@ -55,3 +59,10 @@ entity Entries {=psl
   log         Log @relation(fields: [logId], references: [id]) // references `id` of `Log`
   logId       Int
 psl=}
+
+/* Queries */
+
+query getUserInfo {
+  fn: import { getUserInfo } from "@src/queries",
+  entities: [User, Pharmacy ],
+}

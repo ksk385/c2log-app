@@ -1,41 +1,30 @@
 import waspLogo from "./waspLogo.png";
 import "./Dashboard.css";
+import { getUserInfo, useQuery } from "wasp/client/operations";
 
 export const DashboardPage = () => {
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useQuery(getUserInfo, {
+    userId: 1,
+  });
+
   return (
     <div className="container">
       <main>
-        <div className="logo">
-          <img src={waspLogo} alt="wasp" />
-        </div>
+        {user && <UserInfo user={user} />}
 
-        <h2 className="welcome-title">
-          Welcome to Wasp - you just started a new app!
-        </h2>
-        <h3 className="welcome-subtitle">
-          This is page <code>MainPage</code> located at route <code>/</code>.
-          Open <code>src/MainPage.jsx</code> to edit it.
-        </h3>
-
-        <div className="buttons">
-          <a
-            className="button button-filled"
-            href="https://wasp-lang.dev/docs/tutorial/create"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Take the Tutorial
-          </a>
-          <a
-            className="button button-outline"
-            href="https://discord.com/invite/rzdnErX"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Chat on Discord
-          </a>
-        </div>
+        {isLoading && "Loading..."}
+        {error && "Error: " + error}
       </main>
     </div>
   );
+};
+
+const UserInfo = ({ user }) => {
+  if (!user) return <div>No user</div>;
+
+  return <div>Hi {user.name}!</div>;
 };
