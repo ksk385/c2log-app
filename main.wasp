@@ -77,3 +77,8 @@ action addOrder {
   fn: import { addOrder } from "@src/actions",
   entities: [User, Entries],
 }
+
+action authorizeUser {
+  fn: import { authorizeUser } from "@src/actions",
+  entities: [User],
+}

@@ -1,5 +1,3 @@
-import { connect } from "node:http2";
-
 export const addOrder = async (args, context) => {
   const user = await context.entities.User.findUnique({
     where: { id: args.userId },
@@ -11,7 +9,6 @@ export const addOrder = async (args, context) => {
       },
     },
   });
-  console.dir(user);
   return await context.entities.Entries.create({
     data: {
       ndc: args.ndc,
@@ -24,4 +21,15 @@ export const addOrder = async (args, context) => {
       },
     },
   });
+};
+
+export const authorizeUser = async (args, context) => {
+  const user = await context.entities.User.findUnique({
+    where: { id: args.userId },
+  });
+  if (user.pin === parseInt(args.pinCode)) {
+    return true;
+  } else {
+    throw new Error("Invalid PIN");
+  }
 };
